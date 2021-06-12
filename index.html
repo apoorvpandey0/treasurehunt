@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt finale UIT-RGPV</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>       
+    <style>
+        .item1 { grid-area: header; }
+        .item2 { grid-area: menu; }
+        .item3 { grid-area: main; }
+        .item4 { grid-area: right; }
+        .item5 { grid-area: footer; }
+        
+        .grid-container {
+          display: grid;
+          grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            ;
+          grid-gap: 10px;
+          /* background-color: #2196F3; */
+          padding: 10px;
+        }
+        
+        .grid-container > div {
+          /* background-color: rgba(255, 255, 255, 0.8); */
+          text-align: center;
+          padding: 20px 0;
+          font-size: 30px;
+        }
+        </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="item1"><h1>Congratulations!</h1></div>
+        <div class="item2"><h2>Here is your secret code: lolololol</h2></div>
+        <!-- <div class="item2">Menu</div> -->
+        <!-- <div class="item3">Main</div>   -->
+        <!-- <div class="item4">Right</div> -->
+        <!-- <div class="item5">Footer</div> -->
+      </div>
+    <canvas id="myCanvas"></canvas>
+<script >
+    const myCanvas = document.getElementById('canvas');
+    function windowResize() {
+  myCanvas.width  = window.innerWidth;
+  myCanvas.height = window.innerHeight;
+};
+
+window.addEventListener('resize', windowResize);
+    console.log(myCanvas);
+    
+    var myConfetti = confetti.create(myCanvas, {
+      resize: true,
+      useWorker: true
+    });
+    myConfetti({
+      particleCount: 100,
+      spread: 160
+      // any other options from the global
+      // confetti function
+    });
+    var duration = 15 * 1000;
+var animationEnd = Date.now() + duration;
+var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+function randomInRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+var interval = setInterval(function() {
+  var timeLeft = animationEnd - Date.now();
+
+  if (timeLeft <= 0) {
+    return clearInterval(interval);
+  }
+
+  var particleCount = 100 * (timeLeft / duration);
+  // since particles fall down, start a bit higher than random
+  myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+  myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+}, 250);
+
+var end = Date.now() + (15 * 1000);
+
+// go Buckeyes!
+var colors = ['#bb0000', '#ffffff'];
+
+(function frame() {
+  myConfetti({
+    particleCount: 2,
+    angle: 60,
+    spread: 55,
+    origin: { x: 0 },
+    colors: colors
+  });
+  myConfetti({
+    particleCount: 2,
+    angle: 120,
+    spread: 55,
+    origin: { x: 1 },
+    colors: colors
+  });
+
+  if (Date.now() < end) {
+    requestAnimationFrame(frame);
+  }
+}());
+    setTimeout(() => {
+   myConfetti({
+  particleCount: 100,
+  startVelocity: 30,
+  spread: 360,
+  origin: {
+    x: Math.random(),
+    // since they fall down, start a bit higher than random
+    y: Math.random() - 0.2
+  }
+});
+}, 1000);
+        </script>
+</body>
+</html>
