@@ -106,12 +106,6 @@
             resize: true,
             useWorker: true
         });
-        myConfetti({
-            particleCount: 50,
-            spread: 160
-            // any other options from the global
-            // confetti function
-        });
         var duration = 15 * 1000;
         var animationEnd = Date.now() + duration;
         var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
@@ -136,7 +130,9 @@
         var end = Date.now() + (15 * 1000);
 
         // go Buckeyes!
-        var colors = ['#bb0000', '#ffffff'];
+        
+        if(window.screen.width>=500){
+            var colors = ['#bb0000', '#ffffff'];
 
         (function frame() {
             myConfetti({
@@ -169,7 +165,7 @@
                     y: Math.random() - 0.2
                 }
             });
-        }, 1000);
+        }, 1000);}
     </script>
 </body>
 
